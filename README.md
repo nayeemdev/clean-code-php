@@ -1,42 +1,42 @@
-# Clean Code PHP
+# পিএইচপি তে ক্লিন কোড
 
-## Table of Contents
+## সুচিপত্র
 
-  1. [Introduction](#introduction)
-  2. [Variables](#variables)
-     * [Use meaningful and pronounceable variable names](#use-meaningful-and-pronounceable-variable-names)
-     * [Use the same vocabulary for the same type of variable](#use-the-same-vocabulary-for-the-same-type-of-variable)
-     * [Use searchable names (part 1)](#use-searchable-names-part-1)
-     * [Use searchable names (part 2)](#use-searchable-names-part-2)
-     * [Use explanatory variables](#use-explanatory-variables)
-     * [Avoid nesting too deeply and return early (part 1)](#avoid-nesting-too-deeply-and-return-early-part-1)
-     * [Avoid nesting too deeply and return early (part 2)](#avoid-nesting-too-deeply-and-return-early-part-2)
-     * [Avoid Mental Mapping](#avoid-mental-mapping)
-     * [Don't add unneeded context](#dont-add-unneeded-context)
-  3. [Comparison](#comparison)
-     * [Use identical comparison](#use-identical-comparison)
+  1. [ভূমিকা](#ভূমিকা)
+  2. [ভেরিয়েবল](#ভেরিয়েবল)
+     * [অর্থপূর্ণ এবং উচ্চারণযোগ্য ভেরিয়েবল নাম ব্যবহার করুন](#অর্থপূর্ণ-এবং-উচ্চারণযোগ্য-ভেরিয়েবল-নাম-ব্যবহার-করুন)
+     * [একই ধরনের ভেরিয়েবলের জন্য একই শব্দভাণ্ডার ব্যবহার করুন](#একই-ধরনের-ভেরিয়েবলের-জন্য-একই-শব্দভাণ্ডার-ব্যবহার-করুন)
+     * [অনুসন্ধানযোগ্য নাম ব্যবহার করুন (পর্ব ১)](#অনুসন্ধানযোগ্য-নাম-ব্যবহার-করুন-পর্ব-১)
+     * [অনুসন্ধানযোগ্য নাম ব্যবহার করুন (পর্ব ২)](#অনুসন্ধানযোগ্য-নাম-ব্যবহার-করুন-পর্ব-২)
+     * [ব্যাখ্যামূলক ভেরিয়েবল ব্যবহার করুন](#ব্যাখ্যামূলক-ভেরিয়েবল-ব্যবহার-করুন)
+     * [নেস্টেড স্ট্রাকচার এড়িয়ে চলুন (পর্ব ১)](#নেস্টেড-স্ট্রাকচার-এড়িয়ে-চলুন-পর্ব-১)
+     * [নেস্টেড স্ট্রাকচার এড়িয়ে চলুন (পর্ব ২)](#নেস্টেড-স্ট্রাকচার-এড়িয়ে-চলুন-পর্ব-২)
+     * [মেন্টাল ম্যাপিং এড়িয়ে চলুন](#মেন্টাল-ম্যাপিং-এড়িয়ে-চলুন)
+     * [অপ্রয়োজনীয় প্রসঙ্গ যোগ করবেন না](#অপ্রয়োজনীয়-প্রসঙ্গ-যোগ-করবেন-না)
+  3. [তুলনা](#তুলনা)
+     * [একই ধরনের ভেরিয়েবল এর তুলনা করুন](#একই-ধরনের-ভেরিয়েবল-এর-তুলনা-করুন)
      * [Null coalescing operator](#null-coalescing-operator)
-  4. [Functions](#functions)
-     * [Use default arguments instead of short circuiting or conditionals](#use-default-arguments-instead-of-short-circuiting-or-conditionals)
-     * [Function arguments (2 or fewer ideally)](#function-arguments-2-or-fewer-ideally)
-     * [Function names should say what they do](#function-names-should-say-what-they-do)
-     * [Functions should only be one level of abstraction](#functions-should-only-be-one-level-of-abstraction)
-     * [Don't use flags as function parameters](#dont-use-flags-as-function-parameters)
-     * [Avoid Side Effects](#avoid-side-effects)
-     * [Don't write to global functions](#dont-write-to-global-functions)
-     * [Don't use a Singleton pattern](#dont-use-a-singleton-pattern)
+  4. [ফাংশন](#ফাংশন)
+     * [সংক্ষিপ্ত বা শর্তাধীন সংযোগের পরিবর্তে ডিফল্ট আর্গুমেন্ট ব্যবহার করুন](#সংক্ষিপ্ত-বা-শর্তাধীন-সংযোগের-পরিবর্তে-ডিফল্ট-আর্গুমেন্ট-ব্যবহার-করুন)
+     * [ফাংশন আর্গুমেন্ট (2 টা আর্গুমেন্ট বা কম)](#ফাংশন-আর্গুমেন্ট-2-টা-আর্গুমেন্ট-বা-কম)
+     * [ফাংশন কি কাজ করে সেই হিসেবে নামকরণ করতে হবে](#ফাংশন-কি-কাজ-করে-সেই-হিসেবে-নামকরণ-করতে-হবে)
+     * [ফাংশন-শুধুমাত্র-Abstraction-এর-একটি-স্তর-হওয়া-উচিত](#ফাংশন-শুধুমাত্র-abstraction-এর-একটি-স্তর-হওয়া-উচিত)
+     * [ফাংশন প্যারামিটার হিসাবে flag ব্যবহার করবেন না](#ফাংশন-প্যারামিটার-হিসাবে-flag-ব্যবহার-করবেন-না)
+     * [পার্শ্বপ্রতিক্রিয়া এড়িয়ে চলুন](#পার্শ্বপ্রতিক্রিয়া-এড়িয়ে-চলুন)
+     * [Global functions লেখা থেকে বিরত থাকুন](#global-functions-লেখা-থেকে-বিরত-থাকুন)
+     * [Singleton pattern ব্যাবহার করবেন না](#singleton-pattern-ব্যাবহার-করবেন-না)
      * [Encapsulate conditionals](#encapsulate-conditionals)
-     * [Avoid negative conditionals](#avoid-negative-conditionals)
-     * [Avoid conditionals](#avoid-conditionals)
-     * [Avoid type-checking (part 1)](#avoid-type-checking-part-1)
-     * [Avoid type-checking (part 2)](#avoid-type-checking-part-2)
-     * [Remove dead code](#remove-dead-code)
-  5. [Objects and Data Structures](#objects-and-data-structures)
-     * [Use object encapsulation](#use-object-encapsulation)
-     * [Make objects have private/protected members](#make-objects-have-privateprotected-members)
-  6. [Classes](#classes)
-     * [Prefer composition over inheritance](#prefer-composition-over-inheritance)
-     * [Avoid fluent interfaces](#avoid-fluent-interfaces)
+     * [নেগেটিভ কন্ডিশনিং এড়িয়ে চলুন](#নেগেটিভ-কন্ডিশনিং-এড়িয়ে-চলুন)
+     * [কন্ডিশনিং এড়িয়ে চলুন](#কন্ডিশনিং-এড়িয়ে-চলুন)
+     * [ফাংশন এর মধ্যে টাইপ চেক থেকে বিরত থাকুন (পর্ব ১)](#ফাংশন-এর-মধ্যে-টাইপ-চেক-থেকে-বিরত-থাকুন-পর্ব-১)
+     * [ফাংশন এর মধ্যে টাইপ চেক থেকে বিরত থাকুন (পর্ব ২)](#ফাংশন-এর-মধ্যে-টাইপ-চেক-থেকে-বিরত-থাকুন-পর্ব-২)
+     * [ডেড কোড মুছে ফেলুন](#ডেড-কোড-মুছে-ফেলুন)
+  5. [অবজেক্টস এবং ডেটা স্ট্রাকচার](#অবজেক্টস-এবং-ডেটা-স্ট্রাকচার)
+     * [অবজেক্ট এনক্যাপসুলেশন ব্যবহার করুন](#অবজেক্ট-এনক্যাপসুলেশন-ব্যবহার-করুন)
+     * [অবজেক্ট তৈরিতে private protected মেম্বার ব্যাবহার করুন](#অবজেক্ট-তৈরিতে-private-protected-মেম্বার-ব্যাবহার-করুন)
+  6. [ক্লাস](#ক্লাস)
+     * [Inheritanceএর থেকে Composition কে গুরুত্ব দিন](#Inheritance-এর-থেকে-Composition-কে-গুরুত্ব-দিন)
+     * [ফ্লুয়েন্ট ইন্টারফেস এড়িয়ে চলুন](#ফ্লুয়েন্ট-ইন্টারফেস-এড়িয়ে-চলুন)
      * [Prefer final classes](#prefer-final-classes)
   7. [SOLID](#solid)
      * [Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
@@ -44,15 +44,14 @@
      * [Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
      * [Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
      * [Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
-  8. [Don’t repeat yourself (DRY)](#dont-repeat-yourself-dry)
-  9. [Translations](#translations)
+  8. [পুনরাবৃত্তি করবেন না (DRY)](#পুনরাবৃত্তি-করবেন-না-dry)
+  9. [অনুবাদ](#অনুবাদ)
 
-## Introduction
+## ভূমিকা
 
 Software engineering principles, from Robert C. Martin's book
 [*Clean Code*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882),
-adapted for PHP. This is not a style guide. It's a guide to producing
-readable, reusable, and refactorable software in PHP.
+adapted for PHP. এটি একটি স্টাইল গাইড নয়। এটি পিএইচপিতে পাঠযোগ্য, পুন: ব্যবহারযোগ্য এবং রিফ্যাক্টরেবল সফটওয়্যার তৈরির জন্য একটি নির্দেশিকা।
 
 Not every principle herein has to be strictly followed, and even fewer will be universally
 agreed upon. These are guidelines and nothing more, but they are ones codified over many
@@ -62,27 +61,27 @@ Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-cod
 
 Although many developers still use PHP 5, most of the examples in this article only work with PHP 7.1+.
 
-## Variables
+## ভেরিয়েবল
 
-### Use meaningful and pronounceable variable names
+### অর্থপূর্ণ এবং উচ্চারণযোগ্য ভেরিয়েবল নাম ব্যবহার করুন
 
-**Bad:**
+**খারাপ:**
 
 ```php
 $ymdstr = $moment->format('y-m-d');
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 $currentDate = $moment->format('y-m-d');
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Use the same vocabulary for the same type of variable
+### একই ধরনের ভেরিয়েবলের জন্য একই শব্দভাণ্ডার ব্যবহার করুন
 
-**Bad:**
+**খারাপ:**
 
 ```php
 getUserInfo();
@@ -91,37 +90,34 @@ getUserRecord();
 getUserProfile();
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 getUser();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Use searchable names (part 1)
+### অনুসন্ধানযোগ্য নাম ব্যবহার করুন (পর্ব ১)
 
-We will read more code than we will ever write. It's important that the code we do write is
-readable and searchable. By *not* naming variables that end up being meaningful for
-understanding our program, we hurt our readers.
-Make your names searchable.
+সাধারণত আমরা কোড লেখার থেকে বেশি পড়ে থাকি। তাই এটা গুরুত্বপূর্ণ যে আমরা যে কোড লিখব সেটা যেন রিডেবল এবং সার্চেবল হয় অর্থাৎ পড়তে এবং খুঁজে পেতে যেন সহজ হয়। আমাদের প্রোগ্রাম বোঝার জন্য অর্থবহ হওয়া ভেরিয়েবলের নাম না দিলে যারা কোড পড়বে তাঁদের বুঝতে অসুবিধা হবে। সেজন্য ভেরিয়েবল এর নাম রিডেবল এবং সার্চেবল হওয়া জরুরি।
 
-**Bad:**
+**খারাপ:**
 
 ```php
 // What the heck is 448 for?
 $result = $serializer->serialize($data, 448);
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 $json = $serializer->serialize($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 ```
 
-### Use searchable names (part 2)
+### অনুসন্ধানযোগ্য নাম ব্যবহার করুন (পর্ব ২)
 
-**Bad:**
+**খারাপ:**
 
 ```php
 class User
@@ -139,7 +135,7 @@ if ($user->access & 4) {
 $user->access ^= 2;
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 class User
@@ -164,11 +160,11 @@ if ($user->access & User::ACCESS_UPDATE) {
 $user->access ^= User::ACCESS_CREATE;
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Use explanatory variables
+### ব্যাখ্যামূলক ভেরিয়েবল ব্যবহার করুন
 
-**Bad:**
+**খারাপ:**
 
 ```php
 $address = 'One Infinite Loop, Cupertino 95014';
@@ -178,9 +174,9 @@ preg_match($cityZipCodeRegex, $address, $matches);
 saveCityZipCode($matches[1], $matches[2]);
 ```
 
-**Not bad:**
+**খারাপ নয়:**
 
-It's better, but we are still heavily dependent on regex.
+এটি আরও ভাল, তবে আমরা এখনও রেজেক্সের উপর নির্ভরশীল হয়ে আছি।
 
 ```php
 $address = 'One Infinite Loop, Cupertino 95014';
@@ -191,9 +187,9 @@ preg_match($cityZipCodeRegex, $address, $matches);
 saveCityZipCode($city, $zipCode);
 ```
 
-**Good:**
+**ভাল:**
 
-Decrease dependence on regex by naming subpatterns.
+Naming subpatterns ব্যাবহার করে রেজেক্স এর উপর নির্ভরতা কমিয়ে আনতে পারি।
 
 ```php
 $address = 'One Infinite Loop, Cupertino 95014';
@@ -203,14 +199,13 @@ preg_match($cityZipCodeRegex, $address, $matches);
 saveCityZipCode($matches['city'], $matches['zipCode']);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Avoid nesting too deeply and return early (part 1)
+### নেস্টেড স্ট্রাকচার এড়িয়ে চলুন (পর্ব ১)
 
-Too many if-else statements can make your code hard to follow. Explicit is better
-than implicit.
+অনেক বেশি if-else statements আপনার কোড পড়া বা অনুসরণ করাকে কঠিন করে তুলতে পারে কাড়ন এটা বুঝতে অনেক ঝামেলা হবে। এক্ষেত্রে বিশদভাবে লেখাই ভাল(Explicit is better than implicit.)।
 
-**Bad:**
+**খারাপ:**
 
 ```php
 function isShopOpen($day): bool
@@ -233,7 +228,7 @@ function isShopOpen($day): bool
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 function isShopOpen(string $day): bool
@@ -248,11 +243,11 @@ function isShopOpen(string $day): bool
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Avoid nesting too deeply and return early (part 2)
+### নেস্টেড স্ট্রাকচার এড়িয়ে চলুন (পর্ব ২)
 
-**Bad:**
+**খারাপ:**
 
 ```php
 function fibonacci(int $n)
@@ -270,7 +265,7 @@ function fibonacci(int $n)
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 function fibonacci(int $n): int
@@ -287,14 +282,14 @@ function fibonacci(int $n): int
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Avoid Mental Mapping
+### মেন্টাল ম্যাপিং এড়িয়ে চলুন
 
-Don’t force the reader of your code to translate what the variable means.
-Explicit is better than implicit.
+ভেরিয়েবল নাম এমনভাবে লিখুন যাতে যে কোড পড়ছে তার যেন অনুবাদ করে দেখতে না হয়। এমন নাম হওয়া উচিত যেন যেকেউ দেখে বুঝে নিতে পারে।
+বিশদভাবে লেখাই ভাল(Explicit is better than implicit.)।
 
-**Bad:**
+**খারাপ:**
 
 ```php
 $l = ['Austin', 'New York', 'San Francisco'];
@@ -311,7 +306,7 @@ for ($i = 0; $i < count($l); $i++) {
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 $locations = ['Austin', 'New York', 'San Francisco'];
@@ -326,14 +321,13 @@ foreach ($locations as $location) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Don't add unneeded context
+### অপ্রয়োজনীয় প্রসঙ্গ যোগ করবেন না
 
-If your class/object name tells you something, don't repeat that in your
-variable name.
+যদি আপনার class/object এর নাম দিয়ে কিছু বুঝা যায় তাহলে ওই একই নাম এই class/object এর ভেরিয়েবল এ ব্যবহার করার দরকার নেই।
 
-**Bad:**
+**খারাপ:**
 
 ```php
 class Car
@@ -348,7 +342,7 @@ class Car
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 class Car
@@ -363,15 +357,15 @@ class Car
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-## Comparison
+## তুলনা
 
-### Use [identical comparison](http://php.net/manual/en/language.operators.comparison.php)
+### [একই ধরনের ভেরিয়েবল এর তুলনা করুন](http://php.net/manual/en/language.operators.comparison.php)
 
-**Not good:**
+**ভাল না:**
 
-The simple comparison will convert the string in an integer.
+এখানে এই সিম্পল কম্প্যেয়ার string কে integer এ রূপান্তর করে ফেলেছে।
 
 ```php
 $a = '42';
@@ -382,12 +376,12 @@ if ($a != $b) {
 }
 ```
 
-The comparison `$a != $b` returns `FALSE` but in fact it's `TRUE`!
-The string `42` is different than the integer `42`.
+এখানে `$a != $b`, `FALSE` রিটার্ন করে কিন্তু এটা `TRUE` হবে!
+এখানে string `42` integer `42` এর থেকে আলাদা ধরনের/type।
 
-**Good:**
+**ভাল:**
 
-The identical comparison will compare type and value.
+এই identical comparison type এবং value তুলনা/কম্পেয়ার করে.
 
 ```php
 $a = '42';
@@ -398,15 +392,15 @@ if ($a !== $b) {
 }
 ```
 
-The comparison `$a !== $b` returns `TRUE`.
+এখানে `$a !== $b`, `TRUE` রিটার্ন করে।
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
 ### Null coalescing operator
 
-Null coalescing is a new operator [introduced in PHP 7](https://www.php.net/manual/en/migration70.new-features.php). The null coalescing operator `??` has been added as syntactic sugar for the common case of needing to use a ternary in conjunction with `isset()`. It returns its first operand if it exists and is not `null`; otherwise it returns its second operand.
+Null coalescing হল নতুন অপেরেটর [introduced in PHP 7](https://www.php.net/manual/en/migration70.new-features.php). The null coalescing operator `??` has been added as syntactic sugar for the common case of needing to use a ternary in conjunction with `isset()`. It returns its first operand if it exists and is not `null`; otherwise it returns its second operand.
 
-**Bad:**
+**খারাপ:**
 
 ```php
 if (isset($_GET['name'])) {
@@ -418,20 +412,20 @@ if (isset($_GET['name'])) {
 }
 ```
 
-**Good:**
+**ভাল:**
 ```php
 $name = $_GET['name'] ?? $_POST['name'] ?? 'nobody';
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-## Functions
+## ফাংশন
 
-### Use default arguments instead of short circuiting or conditionals
+### সংক্ষিপ্ত বা শর্তাধীন সংযোগের পরিবর্তে ডিফল্ট আর্গুমেন্ট ব্যবহার করুন
 
-**Not good:**
+**ভাল না:**
 
-This is not good because `$breweryName` can be `NULL`.
+এটা ভাল নয় কারণ  `$breweryName` , `NULL` হতে পারে।
 
 ```php
 function createMicrobrewery($breweryName = 'Hipster Brew Co.'): void
@@ -440,9 +434,9 @@ function createMicrobrewery($breweryName = 'Hipster Brew Co.'): void
 }
 ```
 
-**Not bad:**
+**খারাপ নয়:**
 
-This opinion is more understandable than the previous version, but it better controls the value of the variable.
+এই উদাহরণ টা বুঝতে আগের উদাহরণ থেকে সুবিধা হবে, কিন্তু এটি ভেরিয়েবলের মানকে আরও ভালভাবে নিয়ন্ত্রণ করে।
 
 ```php
 function createMicrobrewery($name = null): void
@@ -452,9 +446,9 @@ function createMicrobrewery($name = null): void
 }
 ```
 
-**Good:**
+**ভাল:**
 
- You can use [type hinting](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration) and be sure that the `$breweryName` will not be `NULL`.
+আপনি [type hinting](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration) ব্যাবহার করে এটা নিশিত করতে পারেন যে `$breweryName` কখন ও `NULL` হবে না।
 
 ```php
 function createMicrobrewery(string $breweryName = 'Hipster Brew Co.'): void
@@ -463,20 +457,15 @@ function createMicrobrewery(string $breweryName = 'Hipster Brew Co.'): void
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Function arguments (2 or fewer ideally)
+### ফাংশন আর্গুমেন্ট (2 টা আর্গুমেন্ট বা কম)
 
-Limiting the amount of function parameters is incredibly important because it makes
-testing your function easier. Having more than three leads to a combinatorial explosion
-where you have to test tons of different cases with each separate argument.
+ফাংশন এর প্যারামিটার কম করা গুরুত্বপূর্ণ কারণ এটা ফাংশন টেস্টিং সহজ করে তোলে। ৩ তার বেশি প্যারামিটার টেস্টিং কে অনেক বেশি কঠিন করে ফেলে কারণ তখন আপনার প্রতিটা আর্গুমেন্ট এর জনন অনেকগুলো করে টেস্ট কেস চিন্তা করতে হবে এবং সেগুলো হ্যান্ডেল করতে হবে।
 
-Zero arguments is the ideal case. One or two arguments is ok, and three should be avoided.
-Anything more than that should be consolidated. Usually, if you have more than two
-arguments then your function is trying to do too much. In cases where it's not, most
-of the time a higher-level object will suffice as an argument.
+জিরো/০ টা আর্গুমেন্ট হল আদর্শ কেস। ১ টা বা ২ টা আর্গুমেন্ট ও থিক আছে কিন্তু ২ এর অধীক হলে অবশ্যয় এভয়েড করতে হবে। সাধারণত, আপনার ফাংশন এ ২ তার বেশি আর্গুমেন্ট থাকা মানে আপনার ফাংশন টা অনেক বেশি কাজ করতেছে যেটা উচিত নয়।
 
-**Bad:**
+**খারাপ:**
 
 ```php
 class Questionnaire
@@ -496,7 +485,7 @@ class Questionnaire
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 class Name
@@ -559,11 +548,11 @@ class Questionnaire
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Function names should say what they do
+### ফাংশন কি কাজ করে সেই হিসেবে নামকরণ করতে হবে
 
-**Bad:**
+**খারাপ:**
 
 ```php
 class Email
@@ -581,7 +570,7 @@ $message = new Email(...);
 $message->handle();
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 class Email
@@ -599,15 +588,13 @@ $message = new Email(...);
 $message->send();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Functions should only be one level of abstraction
+### ফাংশন শুধুমাত্র Abstraction এর একটি স্তর হওয়া উচিত
 
-When you have more than one level of abstraction your function is usually
-doing too much. Splitting up functions leads to reusability and easier
-testing.
+যখন আপনার এক লেভেল এর বেশি abstraction থাকে তার মানে হল আপনার ফাংশন টা অনেক বেশি কাজ করতেছে। ফাংশন ভাগ করে লিখলে সেটা পুনরায় ব্যাবহার এবং টেস্ট করতে খুবই সুবিধা হয়।
 
-**Bad:**
+**খারাপ:**
 
 ```php
 function parseBetterPHPAlternative(string $code): void
@@ -635,9 +622,9 @@ function parseBetterPHPAlternative(string $code): void
 }
 ```
 
-**Bad too:**
+**এটাও খারাপ:**
 
-We have carried out some of the functionality, but the `parseBetterPHPAlternative()` function is still very complex and not testable.
+আমরা কিছু ফাংশন এর কাজ সম্পন্ন করেছি কিন্তু `parseBetterPHPAlternative()` ফাংশন এখনো অনেক জটিল/কমপ্লেক্স এবং টেস্ট করার মত অবস্থাই নেই।
 
 ```php
 function tokenize(string $code): array
@@ -677,9 +664,9 @@ function parseBetterPHPAlternative(string $code): void
 }
 ```
 
-**Good:**
+**ভাল:**
 
-The best solution is move out the dependencies of `parseBetterPHPAlternative()` function.
+সব থেকে ভাল সমাধান হল - `parseBetterPHPAlternative()` থেকে dependency গুল আলাদা করে ফেলা।
 
 ```php
 class Tokenizer
@@ -737,15 +724,12 @@ class BetterPHPAlternative
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Don't use flags as function parameters
+### ফাংশন প্যারামিটার হিসাবে flag ব্যবহার করবেন না
 
-Flags tell your user that this function does more than one thing. Functions should
-do one thing. Split out your functions if they are following different code paths
-based on a boolean.
-
-**Bad:**
+Flags আপনার ইউজার কে বুঝায় যে এই ফাংশন টা একের অধিক কাজ করতেছে, কিন্তু একটা ফাংশন একটার বেশি কাজ করা উচিত নয়। ফাংশন এর কাজ গুল আলাদা করা উচিত যদি boolean ভ্যালু এর উপর বেস করে আলাদা কাজ করে।
+**খারাপ:**
 
 ```php
 function createFile(string $name, bool $temp = false): void
@@ -758,7 +742,7 @@ function createFile(string $name, bool $temp = false): void
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 function createFile(string $name): void
@@ -772,9 +756,9 @@ function createTempFile(string $name): void
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Avoid Side Effects
+### পার্শ্বপ্রতিক্রিয়া এড়িয়ে চলুন
 
 A function produces a side effect if it does anything other than take a value in and
 return another value or values. A side effect could be writing to a file, modifying
@@ -790,7 +774,7 @@ any structure, using mutable data types that can be written to by anything, and 
 centralizing where your side effects occur. If you can do this, you will be happier
 than the vast majority of other programmers.
 
-**Bad:**
+**খারাপ:**
 
 ```php
 // Global variable referenced by following function.
@@ -810,7 +794,7 @@ var_dump($name);
 // ['Ryan', 'McDermott'];
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 function splitIntoFirstAndLastName(string $name): array
@@ -828,9 +812,9 @@ var_dump($newName);
 // ['Ryan', 'McDermott'];
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Don't write to global functions
+### Global functions লেখা থেকে বিরত থাকুন
 
 Polluting globals is a bad practice in many languages because you could clash with another
 library and the user of your API would be none-the-wiser until they get an exception in
@@ -838,7 +822,7 @@ production. Let's think about an example: what if you wanted to have configurati
 You could write global function like `config()`, but it could clash with another library
 that tried to do the same thing.
 
-**Bad:**
+**খারাপ:**
 
 ```php
 function config(): array
@@ -849,7 +833,7 @@ function config(): array
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 class Configuration
@@ -879,9 +863,9 @@ $configuration = new Configuration([
 
 And now you must use instance of `Configuration` in your application.
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Don't use a Singleton pattern
+### Singleton pattern ব্যাবহার করবেন না
 
 Singleton is an [anti-pattern](https://en.wikipedia.org/wiki/Singleton_pattern). Paraphrased from Brian Button:
  1. They are generally used as a **global instance**, why is that so bad? Because **you hide the dependencies** of your application in your code, instead of exposing them through the interfaces. Making something global to avoid passing it around is a [code smell](https://en.wikipedia.org/wiki/Code_smell).
@@ -891,7 +875,7 @@ Singleton is an [anti-pattern](https://en.wikipedia.org/wiki/Singleton_pattern).
 
 There is also very good thoughts by [Misko Hevery](http://misko.hevery.com/about/) about the [root of problem](http://misko.hevery.com/2008/08/25/root-cause-of-singletons/).
 
-**Bad:**
+**খারাপ:**
 
 ```php
 class DBConnection
@@ -918,7 +902,7 @@ class DBConnection
 $singleton = DBConnection::getInstance();
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 class DBConnection
@@ -940,11 +924,11 @@ $connection = new DBConnection($dsn);
 
 And now you must use instance of `DBConnection` in your application.
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
 ### Encapsulate conditionals
 
-**Bad:**
+**খারাপ:**
 
 ```php
 if ($article->state === 'published') {
@@ -952,7 +936,7 @@ if ($article->state === 'published') {
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 if ($article->isPublished()) {
@@ -960,11 +944,11 @@ if ($article->isPublished()) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Avoid negative conditionals
+### নেগেটিভ কন্ডিশনিং এড়িয়ে চলুন
 
-**Bad:**
+**খারাপ:**
 
 ```php
 function isDOMNodeNotPresent(DOMNode $node): bool
@@ -977,7 +961,7 @@ if (! isDOMNodeNotPresent($node)) {
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 function isDOMNodePresent(DOMNode $node): bool
@@ -990,9 +974,9 @@ if (isDOMNodePresent($node)) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Avoid conditionals
+### কন্ডিশনিং এড়িয়ে চলুন
 
 This seems like an impossible task. Upon first hearing this, most people say,
 "how am I supposed to do anything without an `if` statement?" The answer is that
@@ -1003,7 +987,7 @@ one thing. When you have classes and functions that have `if` statements, you
 are telling your user that your function does more than one thing. Remember,
 just do one thing.
 
-**Bad:**
+**খারাপ:**
 
 ```php
 class Airplane
@@ -1024,7 +1008,7 @@ class Airplane
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 interface Airplane
@@ -1065,16 +1049,16 @@ class Cessna implements Airplane
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Avoid type-checking (part 1)
+### ফাংশন এর মধ্যে টাইপ চেক থেকে বিরত থাকুন (পর্ব ১)
 
 PHP is untyped, which means your functions can take any type of argument.
 Sometimes you are bitten by this freedom and it becomes tempting to do
 type-checking in your functions. There are many ways to avoid having to do this.
 The first thing to consider is consistent APIs.
 
-**Bad:**
+**খারাপ:**
 
 ```php
 function travelToTexas($vehicle): void
@@ -1087,7 +1071,7 @@ function travelToTexas($vehicle): void
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 function travelToTexas(Vehicle $vehicle): void
@@ -1096,9 +1080,9 @@ function travelToTexas(Vehicle $vehicle): void
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Avoid type-checking (part 2)
+### ফাংশন এর মধ্যে টাইপ চেক থেকে বিরত থাকুন (পর্ব ২)
 
 If you are working with basic primitive values like strings, integers, and arrays,
 and you use PHP 7+ and you can't use polymorphism but you still feel the need to
@@ -1110,7 +1094,7 @@ extra verbiage that the faux "type-safety" you get doesn't make up for the lost
 readability. Keep your PHP clean, write good tests, and have good code reviews.
 Otherwise, do all of that but with PHP strict type declaration or strict mode.
 
-**Bad:**
+**খারাপ:**
 
 ```php
 function combine($val1, $val2): int
@@ -1123,7 +1107,7 @@ function combine($val1, $val2): int
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 function combine(int $val1, int $val2): int
@@ -1132,15 +1116,15 @@ function combine(int $val1, int $val2): int
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Remove dead code
+### ডেড কোড মুছে ফেলুন
 
 Dead code is just as bad as duplicate code. There's no reason to keep it in
 your codebase. If it's not being called, get rid of it! It will still be safe
 in your version history if you still need it.
 
-**Bad:**
+**খারাপ:**
 
 ```php
 function oldRequestModule(string $url): void
@@ -1157,7 +1141,7 @@ $request = newRequestModule($requestUrl);
 inventoryTracker('apples', $request, 'www.inventory-awesome.io');
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 function requestModule(string $url): void
@@ -1169,12 +1153,12 @@ $request = requestModule($requestUrl);
 inventoryTracker('apples', $request, 'www.inventory-awesome.io');
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
 
-## Objects and Data Structures
+## অবজেক্টস এবং ডেটা স্ট্রাকচার
 
-### Use object encapsulation
+### অবজেক্ট এনক্যাপসুলেশন ব্যবহার করুন
 
 In PHP you can set `public`, `protected` and `private` keywords for methods.
 Using it, you can control properties modification on an object.
@@ -1190,7 +1174,7 @@ server.
 
 Additionally, this is part of [Open/Closed](#openclosed-principle-ocp) principle.
 
-**Bad:**
+**খারাপ:**
 
 ```php
 class BankAccount
@@ -1204,7 +1188,7 @@ $bankAccount = new BankAccount();
 $bankAccount->balance -= 100;
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 class BankAccount
@@ -1245,9 +1229,9 @@ $bankAccount->withdraw($shoesPrice);
 $balance = $bankAccount->getBalance();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Make objects have private/protected members
+### অবজেক্ট তৈরিতে private protected মেম্বার ব্যাবহার করুন
 
 * `public` methods and properties are most dangerous for changes, because some outside code may easily rely on them and you can't control what code relies on them. **Modifications in class are dangerous for all users of class.**
 * `protected` modifier are as dangerous as public, because they are available in scope of any child class. This effectively means that difference between public and protected is only in access mechanism, but encapsulation guarantee remains the same. **Modifications in class are dangerous for all descendant classes.**
@@ -1257,7 +1241,7 @@ Therefore, use `private` by default and `public/protected` when you need to prov
 
 For more information you can read the [blog post](http://fabien.potencier.org/pragmatism-over-theory-protected-vs-private.html) on this topic written by [Fabien Potencier](https://github.com/fabpot).
 
-**Bad:**
+**খারাপ:**
 
 ```php
 class Employee
@@ -1275,7 +1259,7 @@ $employee = new Employee('John Doe');
 echo 'Employee name: ' . $employee->name;
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 class Employee
@@ -1298,11 +1282,11 @@ $employee = new Employee('John Doe');
 echo 'Employee name: ' . $employee->getName();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-## Classes
+## ক্লাস
 
-### Prefer composition over inheritance
+### Inheritanceএর থেকে Composition কে গুরুত্ব দিন
 
 As stated famously in [*Design Patterns*](https://en.wikipedia.org/wiki/Design_Patterns) by the Gang of Four,
 you should prefer composition over inheritance where you can. There are lots of
@@ -1321,7 +1305,7 @@ relationship (Human->Animal vs. User->UserDetails).
 3. You want to make global changes to derived classes by changing a base class.
 (Change the caloric expenditure of all animals when they move).
 
-**Bad:**
+**খারাপ:**
 
 ```php
 class Employee
@@ -1360,7 +1344,7 @@ class EmployeeTaxData extends Employee
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 class EmployeeTaxData
@@ -1401,9 +1385,9 @@ class Employee
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-### Avoid fluent interfaces
+### ফ্লুয়েন্ট ইন্টারফেস এড়িয়ে চলুন
 
 A [Fluent interface](https://en.wikipedia.org/wiki/Fluent_interface) is an object
 oriented API that aims to improve the readability of the source code by using
@@ -1422,7 +1406,7 @@ more often it comes at some costs:
 For more information you can read the full [blog post](https://ocramius.github.io/blog/fluent-interfaces-are-evil/)
 on this topic written by [Marco Pivetta](https://github.com/Ocramius).
 
-**Bad:**
+**খারাপ:**
 
 ```php
 class Car
@@ -1470,7 +1454,7 @@ $car = (new Car())
     ->dump();
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 class Car
@@ -1509,7 +1493,7 @@ $car->setModel('F-150');
 $car->dump();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
 ### Prefer final classes
 
@@ -1525,7 +1509,7 @@ The only condition is that your class should implement an interface and no other
 
 For more informations you can read [the blog post](https://ocramius.github.io/blog/when-to-declare-classes-final/) on this topic written by [Marco Pivetta (Ocramius)](https://ocramius.github.io/).
 
-**Bad:**
+**খারাপ:**
 
 ```php
 final class Car
@@ -1547,7 +1531,7 @@ final class Car
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 interface Vehicle
@@ -1574,7 +1558,7 @@ final class Car implements Vehicle
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
 ## SOLID
 
@@ -1597,7 +1581,7 @@ It's important because if too much functionality is in one class and you modify 
 it can be difficult to understand how that will affect other dependent modules in
 your codebase.
 
-**Bad:**
+**খারাপ:**
 
 ```php
 class UserSettings
@@ -1623,7 +1607,7 @@ class UserSettings
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 class UserAuth
@@ -1662,7 +1646,7 @@ class UserSettings
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
 ### Open/Closed Principle (OCP)
 
@@ -1671,7 +1655,7 @@ etc.) should be open for extension, but closed for modification." What does that
 mean though? This principle basically states that you should allow users to
 add new functionalities without changing existing code.
 
-**Bad:**
+**খারাপ:**
 
 ```php
 abstract class Adapter
@@ -1736,7 +1720,7 @@ class HttpRequester
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 interface Adapter
@@ -1776,7 +1760,7 @@ class HttpRequester
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
 ### Liskov Substitution Principle (LSP)
 
@@ -1793,7 +1777,7 @@ classic Square-Rectangle example. Mathematically, a square is a rectangle, but
 if you model it using the "is-a" relationship via inheritance, you quickly
 get into trouble.
 
-**Bad:**
+**খারাপ:**
 
 ```php
 class Rectangle
@@ -1847,7 +1831,7 @@ foreach ($rectangles as $rectangle) {
 }
 ```
 
-**Good:**
+**ভাল:**
 
 The best way is separate the quadrangles and allocation of a more general subtype for both shapes.
 
@@ -1905,7 +1889,7 @@ foreach ($shapes as $shape) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
 ### Interface Segregation Principle (ISP)
 
@@ -1917,7 +1901,7 @@ classes that require large settings objects. Not requiring clients to set up
 huge amounts of options is beneficial, because most of the time they won't need
 all of the settings. Making them optional helps prevent having a "fat interface".
 
-**Bad:**
+**খারাপ:**
 
 ```php
 interface Employee
@@ -1954,7 +1938,7 @@ class RobotEmployee implements Employee
 }
 ```
 
-**Good:**
+**ভাল:**
 
 Not every worker is an employee, but every employee is a worker.
 
@@ -1996,7 +1980,7 @@ class RobotEmployee implements Workable
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
 ### Dependency Inversion Principle (DIP)
 
@@ -2013,7 +1997,7 @@ It can accomplish this through DI. A huge benefit of this is that it reduces
 the coupling between modules. Coupling is a very bad development pattern because
 it makes your code hard to refactor.
 
-**Bad:**
+**খারাপ:**
 
 ```php
 class Employee
@@ -2048,7 +2032,7 @@ class Manager
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 interface Employee
@@ -2088,9 +2072,9 @@ class Manager
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-## Don’t repeat yourself (DRY)
+## পুনরাবৃত্তি করবেন না (DRY)
 
 Try to observe the [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principle.
 
@@ -2115,7 +2099,7 @@ worse than duplicate code, so be careful! Having said this, if you can make
 a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself
 updating multiple places any time you want to change one thing.
 
-**Bad:**
+**খারাপ:**
 
 ```php
 function showDeveloperList(array $developers): void
@@ -2143,7 +2127,7 @@ function showManagerList(array $managers): void
 }
 ```
 
-**Good:**
+**ভাল:**
 
 ```php
 function showList(array $employees): void
@@ -2172,12 +2156,14 @@ function showList(array $employees): void
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
 
-## Translations
+## অনুবাদ
 
 This is also available in other languages:
 
+* :bangladesh: **Bangla:**
+   * [nayeemdev/clean-code-php](https://github.com/nayeemdev/clean-code-php)
 * :cn: **Chinese:**
    * [php-cpm/clean-code-php](https://github.com/php-cpm/clean-code-php)
 * :ru: **Russian:**
@@ -2200,4 +2186,4 @@ This is also available in other languages:
 * :iran: **Persian:**
      * [amirshnll/clean-code-php](https://github.com/amirshnll/clean-code-php)
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ সূচিপত্রে ফিরে যান](#সুচিপত্র)**
