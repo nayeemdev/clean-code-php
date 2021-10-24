@@ -2078,26 +2078,13 @@ class Manager
 
 Try to observe the [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principle.
 
-Do your absolute best to avoid duplicate code. Duplicate code is bad because
-it means that there's more than one place to alter something if you need to
-change some logic.
+ডুপ্লিকেট কোড এড়ানোর জন্য সব সময় ই চেষ্টা করা উচিত। ডুপ্লিকেট কোড খারাপ কারণ হল যে আপনার যদি কোন কিছু পরিবর্তন করতে হয় তাহলে যত জায়গায় ডুপ্লিকেট কোড লিখেছেন সব জাইগায় ই পরিবর্তন করতে হবে।
 
-Imagine if you run a restaurant and you keep track of your inventory: all your
-tomatoes, onions, garlic, spices, etc. If you have multiple lists that
-you keep this on, then all have to be updated when you serve a dish with
-tomatoes in them. If you only have one list, there's only one place to update!
+মনে করেন আপনি একটা রেস্টুরেন্ট চালাচ্ছেন এবং আপনার সব ইনভেন্টরি এর হিসাব রাখতে হয়: টমাটো, পেয়াজ, রসুন, মরিচ ইত্যাদি। এখন যদি এই ইনভেন্টরি এর জন্য আলাদা আলাদা লিস্ট করেন তাহলে প্রতি বার ই আপনার সবগুলো লিস্ট আপডেট করতে হবে যদি কোন লিস্ট আপডেট করতে ভুলে যান তাহলে আপনার হিসাব ও ভুল হয়ে যাবে। কিন্তু যদি শুধু একটা লিস্ট থাকত তাহলে কত সহজেই কাজ হয়ে যেত শুদু মাত্র একটা জায়গায় তেই পরিবর্তন এর মাধ্যমে।
 
-Often you have duplicate code because you have two or more slightly
-different things, that share a lot in common, but their differences force you
-to have two or more separate functions that do much of the same things. Removing
-duplicate code means creating an abstraction that can handle this set of different
-things with just one function/module/class.
+যদি এমন হয় যে আপনার ডুপ্লিকেট কোড করার কারণ হল আপনার কাছে ২ টা আলাদা জিনিষ আছে কিন্তু সেখানে কিছু জিনিস একই রকম যেটা আপনাকে ফোর্স করতেছে আলাদা ভাবে কোড করার জন্য। তাহলে আপনি ওই আলদা জিনিসগুলো আলাদা ভাবে abstraction করে জিনিসটা হান্ডেল করতে পারেন আর এর জন্য ওই আলাদা জিনিষ গুলো একটা function/module/class এ নিয়ে কাজ করতে পারেন তাহলে এই function/module/class আপনি অন্য কোথায় লাগলে সেখানে ব্যাবহার করতে পারবেন।
 
-Getting the abstraction right is critical, that's why you should follow the
-SOLID principles laid out in the [Classes](#classes) section. Bad abstractions can be
-worse than duplicate code, so be careful! Having said this, if you can make
-a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself
-updating multiple places any time you want to change one thing.
+abstraction করা আসলে একটুখানি কঠিন এর জন্য আপনার উচিত হবে SOLID principles এর [Classes](#classes) section তা ফলো করা। কারণ খারাপ abstraction ডুপ্লিকেট কোড এর থেকেও বেশি খারাপ, তাই আপনাকে এই বিষয়ে অবশ্যই সাবধান হতে হবে।
 
 **খারাপ:**
 
@@ -2145,7 +2132,7 @@ function showList(array $employees): void
 
 **Very good:**
 
-It is better to use a compact version of the code.
+কোড এর কম্প্যাক্ট ভার্সন ব্যাবহার করা সবসময় ভাল।
 
 ```php
 function showList(array $employees): void
@@ -2160,9 +2147,9 @@ function showList(array $employees): void
 
 ## অনুবাদ
 
-This is also available in other languages:
+এটা অন্যান্য ভাষাতেও খুঁজে পাবেন এখানেঃ 
 
-* :bangladesh: **Bangla:**
+* :bangladesh: **বাংলা:**
    * [nayeemdev/clean-code-php](https://github.com/nayeemdev/clean-code-php)
 * :cn: **Chinese:**
    * [php-cpm/clean-code-php](https://github.com/php-cpm/clean-code-php)
