@@ -398,7 +398,7 @@ if ($a !== $b) {
 
 ### Null coalescing operator
 
-Null coalescing হল নতুন অপেরেটর [introduced in PHP 7](https://www.php.net/manual/en/migration70.new-features.php). The null coalescing operator `??` has been added as syntactic sugar for the common case of needing to use a ternary in conjunction with `isset()`. It returns its first operand if it exists and is not `null`; otherwise it returns its second operand.
+Null coalescing হল নতুন অপেরেটর [PHP 7 এ যুক্ত হয়েছে](https://www.php.net/manual/en/migration70.new-features.php). The null coalescing operator `??` has been added as syntactic sugar for the common case of needing to use a ternary in conjunction with `isset()`. এটি এর প্রথম operand রিটার্ন করে যদি প্রথম operand টি exists করে এবং এটি NULL না হয়, অন্যথায় এটি দ্বিতীয় operand রিটার্ন করে।
 
 **খারাপ:**
 
